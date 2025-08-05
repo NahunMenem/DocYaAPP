@@ -54,5 +54,11 @@ def listar_medicos():
     conn.close()
     return render_template("medicos.html", medicos=medicos)
 
+
+@app.route("/inicio")
+def inicio():
+    return redirect(url_for("listar_medicos"))
+
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)
+
