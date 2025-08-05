@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}DocYa{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: '#2563EB',
+              accent: '#10B981',
+              dark: '#1F2937'
+            }
+          }
+        }
+      }
+    </script>
+    {% block head_scripts %}{% endblock %}
+</head>
+<body class="bg-gray-50 min-h-screen pb-24">
+
+    <main class="max-w-6xl mx-auto p-4">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Menú inferior fijo -->
+    <nav class="fixed bottom-0 left-0 w-full bg-white border-t border-gray-200 shadow-lg z-50">
+        <div class="flex justify-around items-center py-2">
+            <a href="{{ url_for('inicio') }}" class="flex flex-col items-center {% if request.endpoint == 'inicio' %}text-primary{% else %}text-gray-500{% endif %}">
+                <i data-lucide="home" class="w-6 h-6"></i>
+                <span class="text-xs">Inicio</span>
+            </a>
+            <a href="{{ url_for('listar_medicos') }}" class="flex flex-col items-center {% if request.endpoint == 'listar_medicos' %}text-primary{% else %}text-gray-500{% endif %}">
+                <i data-lucide="users" class="w-6 h-6"></i>
+                <span class="text-xs">Médicos</span>
+            </a>
+            <a href="{{ url_for('registro_medico') }}" class="flex flex-col items-center {% if request.endpoint == 'registro_medico' %}text-primary{% else %}text-gray-500{% endif %}">
+                <i data-lucide="user-plus" class="w-6 h-6"></i>
+                <span class="text-xs">Registrar</span>
+            </a>
+            <a href="{{ url_for('promociones') }}" class="flex flex-col items-center {% if request.endpoint == 'promociones' %}text-primary{% else %}text-gray-500{% endif %}">
+                <i data-lucide="percent" class="w-6 h-6"></i>
+                <span class="text-xs">Promos</span>
+            </a>
+            <a href="{{ url_for('perfil') }}" class="flex flex-col items-center {% if request.endpoint == 'perfil' %}text-primary{% else %}text-gray-500{% endif %}">
+                <i data-lucide="user" class="w-6 h-6"></i>
+                <span class="text-xs">Perfil</span>
+            </a>
+        </div>
+    </nav>
+
+    <script>
+        lucide.createIcons();
+    </script>
+    {% block body_scripts %}{% endblock %}
+</body>
+</html>
