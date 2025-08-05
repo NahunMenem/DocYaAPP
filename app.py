@@ -43,7 +43,23 @@ def registro_medico():
         return redirect(url_for("listar_medicos"))
 
     return render_template("registro_medico.html")
+@app.route("/actualizar_puntuacion/<int:medico_id>", methods=["POST"])
+def actualizar_puntuacion(medico_id):
+    nueva_puntuacion = request.form.get("puntuacion")
+    
+    conn = get_db_connection()
+    cur = conn.cursor()
+    cur.execute("""
+        UPDATE medicos
+        SET puntuacion = %s
+        WHERE id = %s
+    """, (nueva_puntuacion, medico_id))
+    conn.commit()
+    cur.close()
+    conn.close()
 
+    flash("Puntuación actualizada correctamente", "success")
+    return redirect(url_for("listar_medicos"))
 @app.route("/medicos")
 def listar_medicos():
     conn = get_db_connection()
@@ -68,6 +84,7 @@ def perfil():
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)
+
 
 
 
